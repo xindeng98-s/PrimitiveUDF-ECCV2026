@@ -10,7 +10,8 @@ Spatial Intelligence Group, The Hong Kong Polytechnic University · NUDT
 
 ## Installation
 
-Install Git LFS, a C++ compiler and the CUDA toolkit, then:
+The exported environment targets Linux x86_64. Install Git LFS, a C++ compiler
+and a CUDA toolkit compatible with the PyTorch build in `environment.yml`, then:
 
 ```bash
 git lfs pull
