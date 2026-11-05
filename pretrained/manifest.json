@@ -8,8 +8,8 @@
     "noise": 0.0,
     "input_points": 10000,
     "neighbor_k": 16,
-    "bytes": 137416072,
-    "sha256": "23e4c81fc59a6eb973e7c2680b07a1b19a4554e66f38245fcfb90bdb67067bc1",
+    "bytes": 137415752,
+    "sha256": "a1f43f01f5f8eeec4d73d9662e2df8254e2845355b0ff4e7880224c9e367557f",
     "checkpoint_format": "Lightning checkpoint with portable metadata; model weights and optimizer state preserved"
   },
   "matterport3d": {
@@ -21,8 +21,8 @@
     "noise": 0.0,
     "input_points": 10000,
     "neighbor_k": 16,
-    "bytes": 137430311,
-    "sha256": "755ae7c963d0d51adea1deb795301e7809b1904e1d1c91e154406e3a3797e0e1",
+    "bytes": 137430055,
+    "sha256": "b76156c5b1172e68ac89bae9411047d6aad134421d2d0cf2a9c21bf0b48e0e47",
     "checkpoint_format": "Lightning checkpoint with portable metadata; model weights and optimizer state preserved"
   },
   "shapenet_cars": {
@@ -34,8 +34,8 @@
     "noise": 0.0,
     "input_points": 10000,
     "neighbor_k": 16,
-    "bytes": 137433146,
-    "sha256": "0576c5b3ba69866e7c705e9c6ecb6f7dc5e9bd6907b3e6f161aa0a5b4755069e",
+    "bytes": 137432826,
+    "sha256": "b14608b57709522c34fa5ce3025f9710ff8a82a8cbb33113f3e7c293483d025b",
     "checkpoint_format": "Lightning checkpoint with portable metadata; model weights and optimizer state preserved"
   }
 }

@@ -44,7 +44,7 @@ class MeshUDFGenerator:
         self.cfg = cfg
         self.device = device
         self.resolution = int(resolution or cfg.get("gen_res", 256))
-        self.bbox = float(bbox or cfg.get("gen_bbox", cfg.get("bb_max", 0.55)))
+        self.bbox = float(bbox or cfg.get("gen_bbox", 0.55))
         self.points_batch_size = int(
             points_batch_size or cfg.get("num_sample_points_generation", 50000)
         )

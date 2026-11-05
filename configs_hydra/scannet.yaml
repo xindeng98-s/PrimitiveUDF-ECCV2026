@@ -1,12 +1,8 @@
 experiment:
   name: scannet_v3
-  target_model: rangeudf_composed_pointtransformer_triangle
-  notes: Minimal Hydra/Lightning pipeline with configurable dataset, model, loss,
-    backbone, and head.
 data:
   dataset_module: datasets.pointcloud
   dataset_builder: build_dataset
-  raw_data_dir: data/scannet/source/data_color/
   data_dir: data/scannet/source/data_color/scenes
   split_file: splits/split_scannet.npz
   sample_std_dev:
@@ -17,8 +13,6 @@ data:
   - 0.01
   - 0.49
   - 0.5
-  bb_min: -0.55
-  bb_max: 0.55
   gen_res: 256
   num_points: 10000
   noise: 0.0

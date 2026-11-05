@@ -191,7 +191,7 @@ def seed_generation(seed: int) -> None:
 
 
 def normalize_project_paths(cfg: dict[str, Any]) -> None:
-    for key in ("data_dir", "raw_data_dir", "split_file"):
+    for key in ("data_dir", "split_file"):
         value = cfg.get(key)
         if not value:
             continue
