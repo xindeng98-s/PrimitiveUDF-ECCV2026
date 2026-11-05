@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+/data/
+/outputs/
+/checkpoints/
+*.log
+*.so
+*.o
+build/
+dist/
+*.egg-info/
+networks/custom_mc/_marching_cubes_lewiner_cy.cpp
+.venv/
+
+/raw/

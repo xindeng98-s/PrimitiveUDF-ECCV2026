@@ -1,0 +1,181 @@
+experiment:
+  name: matterport3d_v3
+  target_model: rangeudf_composed_pointtransformer_triangle
+  notes: Matterport3D scene-level single-GPU run with configurable dataset, model,
+    loss, backbone, and head.
+data:
+  dataset_module: datasets.pointcloud
+  dataset_builder: build_dataset
+  raw_data_dir: data/matterport3d/
+  data_dir: data/matterport3d
+  split_file: splits/split_matterport3d.npz
+  sample_std_dev:
+  - 0.08
+  - 0.02
+  - 0.003
+  sample_ratio:
+  - 0.01
+  - 0.49
+  - 0.5
+  bb_min: -0.55
+  bb_max: 0.55
+  gen_res: 256
+  num_points: 10000
+  noise: 0.0
+  num_sample_points_training: 50000
+  num_sample_points_generation: 50000
+  batch_size: 4
+  gen_bbox: 0.6
+  filter: 3.0
+model:
+  model_module: models.rangeudf
+  model_builder: build_model
+  backbone_module: backbones.point_transformer_v2
+  backbone_builder: build_backbone
+  head_module: heads.primitive_bank_v3
+  head_builder: build_head
+  in_dim: 3
+  get_2nd: false
+  num_layers: 4
+  sub_sampling_ratio:
+  - 2.5
+  - 2.5
+  - 2.5
+  num_neighbors: 16
+  fixed_input: false
+  init_grid: 0.01
+  enc_depth:
+  - 2
+  - 2
+  - 6
+  - 2
+  dec_depth:
+  - 1
+  - 1
+  - 1
+  - 1
+  enc_channels:
+  - 96
+  - 192
+  - 384
+  - 512
+  enc_groups:
+  - 12
+  - 24
+  - 48
+  - 64
+  dec_channels:
+  - 48
+  - 96
+  - 192
+  - 384
+  dec_groups:
+  - 6
+  - 12
+  - 24
+  - 48
+  grid_first: true
+  unpool: map
+  pe_mul: false
+  is_sdf: false
+  primitive_bank_neighbor_k: 16
+  primitive_bank_keep_prims: 10
+  primitive_dropout_p: 0.0
+  primitive_dropout_eval: false
+  primitive_point_cache_size: 48
+  primitive_point_cache_max_cells: 2000000
+  primitive_point_cache_tolerance: 1.0e-06
+  primitive_geometry_backend: auto
+  primitive_query_chunk_size: 50000
+  primitive_cache_point_features: true
+loss:
+  loss_module: networks.loss_abc_nksr
+  loss_builder: build_loss
+  off_rec_weight: 1.0
+  on_rec_weight: 0.1
+  norm_weight: 0.001
+  on_norm_weight: 0.0
+  normal_query_stride: 1
+optim:
+  optimizer: Adam
+  lr: 0.001
+scheduler:
+  scheduler: lambda
+  decay: true
+  decay_ratio: 0.3
+  decay_milestones:
+  - 30
+  - 70
+  - 110
+  - 200
+  warmup_steps: 1000
+  warmup_start_factor: 0.1
+  min_lr: 1.0e-06
+runtime:
+  run_mode: fit
+  experiment_root: outputs
+  log_dir: null
+  seed: 20
+  train_num_workers: 8
+  val_num_workers: 16
+  val_pin_memory: true
+  eval_ckpt: null
+train:
+  num_epochs: 500
+trainer:
+  accelerator: gpu
+  devices: 1
+  num_nodes: 1
+  strategy: null
+  precision: 32
+  sync_batchnorm: true
+  replace_sampler_ddp: true
+  gradient_clip_val: 1.0
+  accumulate_grad_batches: 1
+  log_every_n_steps: 10
+  epoch_only_logging: false
+  enable_progress_bar: false
+  num_sanity_val_steps: 0
+  limit_train_batches: 1.0
+  limit_val_batches: 1.0
+  deterministic: false
+  fast_dev_run: false
+logger:
+  logger_project: primitiveudf
+  logger_entity: null
+  logger_run_name: null
+  logger_offline: true
+  logger_log_model: false
+checkpoint:
+  monitor: val/rec_loss
+  mode: min
+  save_top_k: 5
+  save_last: true
+  dirname: checkpoints
+  filename: epoch_{epoch:03d}
+  resume_ckpt: null
+hydra:
+  job:
+    chdir: false
+  run:
+    dir: .
+  output_subdir: null
+preparation:
+  mesh_root: raw/matterport3d
+  mesh_pattern: "{house}/region_segmentations/{region}.ply"
+  normalization: unit_aabb
+  surface_points: 100000
+  query_points_per_sigma: 100000
+  sigmas: [0.08, 0.02, 0.003]
+  seed: 20
+  query_chunk_size: 100000
+  ray_threads: 1
+evaluation:
+  sample_points: 500000
+  reference_points: 100000
+  bbox_margin: 0.007
+  distance_threshold: 0.02
+  no_reference_filter: true
+  no_repair: true
+  seed: 20
+  threads: 10

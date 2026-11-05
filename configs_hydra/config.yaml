@@ -1,0 +1,3 @@
+defaults:
+  - scannet
+  - _self_
